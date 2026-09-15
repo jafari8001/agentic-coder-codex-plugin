@@ -2,6 +2,12 @@
 
 All notable changes to this plugin are documented in this file.
 
+## 0.2.1 — 2026-09-15
+
+- Aligns release metadata and the installation example on version 0.2.1.
+- Refines Complex-task state so unchanged context is not surfaced as a routine handoff.
+- Retains progressive context acquisition, diff-first review, and lightweight behavioral fixtures.
+
 ## 0.2.0 — 2026-09-15
 
 - Adds progressive context acquisition and an explicit Context Sufficiency Check.

@@ -49,7 +49,7 @@ After a maintainer publishes a tagged release, install that immutable release ra
 branch. Replace `OWNER/REPO` with the published Git repository:
 
 ```bash
-codex plugin marketplace add OWNER/REPO --ref v0.2.0
+codex plugin marketplace add OWNER/REPO --ref v0.2.1
 codex plugin add agentic-coder@agentic-coder
 ```
 

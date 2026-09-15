@@ -40,14 +40,9 @@ then check again. Do not restate source text in plans or handoffs; summarize onl
 
 - **Simple:** inspect the target and closest caller or test; make the minimal change; verify it.
 - **Medium:** follow the plan; edit coherent units; review the diff; verify affected behaviour.
-- **Complex:** keep compact internal state and update only changed fields:
-
-  ```text
-  STATE — Objective | Scope | Done | Next | Risk
-  ```
-
-  Do not repeat unchanged state, the original request, or repository content. Ask a concise
-  clarification before an irreversible assumption.
+- **Complex:** keep `STATE(Objective, Scope, Done, Next, Risk)` internally. Update only changed
+  fields. Surface it only when useful; never as a routine handoff or a repeat of the original
+  request/repository content. Clarify before irreversible assumptions.
 
 ## Definition of Done
 
