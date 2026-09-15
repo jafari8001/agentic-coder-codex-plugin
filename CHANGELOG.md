@@ -2,6 +2,14 @@
 
 All notable changes to this plugin are documented in this file.
 
+## 0.2.0 — 2026-09-15
+
+- Adds progressive context acquisition and an explicit Context Sufficiency Check.
+- Clarifies risk-based Simple, Medium, and Complex routing.
+- Adds Definition of Done, compact Complex state, diff-first adversarial review, and a cheapest-
+  sufficient verification strategy.
+- Adds lightweight behavioral evaluation fixtures and a dependency-free format validator.
+
 ## 0.1.0 — 2026-09-15
 
 - Initial public release of the Agentic Coder skill-only Codex plugin.

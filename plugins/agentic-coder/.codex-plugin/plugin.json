@@ -1,15 +1,15 @@
 {
   "name": "agentic-coder",
-  "version": "0.1.0",
-  "description": "A disciplined, review-first coding workflow for Codex.",
+  "version": "0.2.0",
+  "description": "A context-efficient, evidence-driven coding workflow for Codex.",
   "author": {
     "name": "AgenticCoder contributors"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "Agentic Coder",
-    "shortDescription": "Plan, patch, review, and verify coding tasks.",
-    "longDescription": "Guides Codex through minimal context analysis, scoped planning, reviewable implementation, and verification without requiring an API key.",
+    "shortDescription": "Route, implement, review, and verify coding tasks efficiently.",
+    "longDescription": "Guides Codex through progressive context acquisition, risk-based routing, adversarial diff review, and evidence-driven verification without requiring an API key.",
     "developerName": "AgenticCoder contributors",
     "category": "Productivity",
     "capabilities": ["Interactive", "Write"],
