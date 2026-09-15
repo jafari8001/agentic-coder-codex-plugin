@@ -1,0 +1,22 @@
+{
+  "name": "agentic-coder",
+  "version": "0.1.0",
+  "description": "A disciplined, review-first coding workflow for Codex.",
+  "author": {
+    "name": "AgenticCoder contributors"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Agentic Coder",
+    "shortDescription": "Plan, patch, review, and verify coding tasks.",
+    "longDescription": "Guides Codex through minimal context analysis, scoped planning, reviewable implementation, and verification without requiring an API key.",
+    "developerName": "AgenticCoder contributors",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Write"],
+    "defaultPrompt": [
+      "Use Agentic Coder to implement this task safely.",
+      "Use Agentic Coder to review the current diff.",
+      "Use Agentic Coder to plan this repository change."
+    ]
+  }
+}
