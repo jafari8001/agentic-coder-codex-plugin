@@ -2,6 +2,13 @@
 
 All notable changes to this plugin are documented in this file.
 
+## 0.2.2 — 2026-09-16
+
+- Hardens context sufficiency, compact state, diff-first review, and evidence-driven verification.
+- Aligns release metadata on version 0.2.2 and removes the local development cachebuster.
+- Updates behavioral fixtures for expected context, verification, and safety behavior; adds review
+  and verification coverage without an execution harness.
+
 ## 0.2.1 — 2026-09-15
 
 - Aligns release metadata and the installation example on version 0.2.1.

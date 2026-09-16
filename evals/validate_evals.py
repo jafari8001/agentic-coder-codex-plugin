@@ -9,14 +9,17 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 REQUIRED_FIELDS = {
     "id",
+    "category",
     "task",
     "expected_route",
-    "expected_scope",
-    "required_verification",
-    "prohibited_behavior",
+    "expected_context_behavior",
+    "expected_verification",
     "expected_safety_behavior",
+    "must_not",
+    "notes",
 }
 VALID_ROUTES = {"simple", "medium", "complex"}
+VALID_CATEGORIES = {"routing", "context_efficiency", "review", "verification", "safety"}
 
 
 def main() -> None:
@@ -41,6 +44,8 @@ def main() -> None:
                 errors.append(f"{label}: missing {', '.join(sorted(missing))}")
             if scenario.get("expected_route") not in VALID_ROUTES:
                 errors.append(f"{label}: invalid expected_route")
+            if scenario.get("category") not in VALID_CATEGORIES:
+                errors.append(f"{label}: invalid category")
             scenario_id = scenario.get("id")
             if not isinstance(scenario_id, str) or not scenario_id:
                 errors.append(f"{label}: id must be a non-empty string")
@@ -48,13 +53,13 @@ def main() -> None:
                 errors.append(f"{label}: duplicate id {scenario_id}")
             else:
                 scenario_ids.add(scenario_id)
-            for field in {"expected_scope", "required_verification", "prohibited_behavior"}:
+            for field in {"expected_context_behavior", "expected_verification", "must_not"}:
                 value = scenario.get(field)
                 if not isinstance(value, list) or not value or not all(
                     isinstance(item, str) and item for item in value
                 ):
                     errors.append(f"{label}: {field} must be a non-empty list of strings")
-            for field in {"task", "expected_safety_behavior"}:
+            for field in {"task", "expected_safety_behavior", "notes"}:
                 value = scenario.get(field)
                 if not isinstance(value, str) or not value:
                     errors.append(f"{label}: {field} must be a non-empty string")

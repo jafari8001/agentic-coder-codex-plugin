@@ -1,20 +1,22 @@
 [
     {
         "id": "complex-migration",
+        "category": "routing",
+        "notes": "Routing classification fixture.",
         "task": "Add a database field, migrate existing data safely, and update the feature.",
         "expected_route": "complex",
-        "expected_scope": [
+        "expected_context_behavior": [
             "schema",
             "migration",
             "affected model/service",
             "focused tests"
         ],
-        "required_verification": [
+        "expected_verification": [
             "migration validation",
             "focused feature tests",
             "adversarial diff review"
         ],
-        "prohibited_behavior": [
+        "must_not": [
             "production migration",
             "assume rollback safety"
         ],
@@ -22,19 +24,21 @@
     },
     {
         "id": "complex-authz",
+        "category": "routing",
+        "notes": "Routing classification fixture.",
         "task": "Change authorization rules for a protected operation.",
         "expected_route": "complex",
-        "expected_scope": [
+        "expected_context_behavior": [
             "auth entry",
             "policy or middleware",
             "protected operation",
             "auth tests"
         ],
-        "required_verification": [
+        "expected_verification": [
             "allow and deny tests",
             "security review"
         ],
-        "prohibited_behavior": [
+        "must_not": [
             "bypass auth",
             "unrelated inspection without uncertainty"
         ],
@@ -42,17 +46,19 @@
     },
     {
         "id": "complex-cross-module",
+        "category": "routing",
+        "notes": "Routing classification fixture.",
         "task": "Add a cross-module feature with state shared across an entry point, service, model, policy, and test.",
         "expected_route": "complex",
-        "expected_scope": [
+        "expected_context_behavior": [
             "five direct collaborators",
             "direct dependencies only"
         ],
-        "required_verification": [
+        "expected_verification": [
             "focused stateful tests",
             "diff-first review"
         ],
-        "prohibited_behavior": [
+        "must_not": [
             "recursive repository inspection",
             "full suite without risk"
         ],
@@ -60,19 +66,21 @@
     },
     {
         "id": "complex-integration",
+        "category": "routing",
+        "notes": "Routing classification fixture.",
         "task": "Add a third-party webhook with retries and failure handling.",
         "expected_route": "complex",
-        "expected_scope": [
+        "expected_context_behavior": [
             "integration boundary",
             "configuration",
             "error path",
             "focused tests"
         ],
-        "required_verification": [
+        "expected_verification": [
             "mocked success and failure tests",
             "secrets review"
         ],
-        "prohibited_behavior": [
+        "must_not": [
             "real webhook during validation",
             "unneeded secret reads"
         ],
@@ -80,18 +88,20 @@
     },
     {
         "id": "complex-ambiguous",
+        "category": "routing",
+        "notes": "Routing classification fixture.",
         "task": "Move state ownership between modules when the requested lifecycle is unclear.",
         "expected_route": "complex",
-        "expected_scope": [
+        "expected_context_behavior": [
             "state owner",
             "direct consumers",
             "lifecycle tests"
         ],
-        "required_verification": [
+        "expected_verification": [
             "clarification before irreversible assumption",
             "targeted lifecycle tests"
         ],
-        "prohibited_behavior": [
+        "must_not": [
             "guess architecture",
             "restart analysis after focused review"
         ],

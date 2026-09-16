@@ -1,19 +1,21 @@
 [
     {
         "id": "medium-api-change",
+        "category": "routing",
+        "notes": "Routing classification fixture.",
         "task": "Add an optional API field, update its service, and update focused endpoint tests.",
         "expected_route": "medium",
-        "expected_scope": [
+        "expected_context_behavior": [
             "endpoint",
             "direct service",
             "focused endpoint tests",
             "API contract"
         ],
-        "required_verification": [
+        "expected_verification": [
             "focused endpoint test",
             "diff review"
         ],
-        "prohibited_behavior": [
+        "must_not": [
             "unrelated endpoints",
             "broad suite without risk"
         ],
@@ -21,18 +23,20 @@
     },
     {
         "id": "medium-service-change",
+        "category": "routing",
+        "notes": "Routing classification fixture.",
         "task": "Change a service response for one feature and update its corresponding test.",
         "expected_route": "medium",
-        "expected_scope": [
+        "expected_context_behavior": [
             "feature entry point",
             "service",
             "matching test"
         ],
-        "required_verification": [
+        "expected_verification": [
             "focused feature test",
             "compatibility check"
         ],
-        "prohibited_behavior": [
+        "must_not": [
             "unrelated services",
             "unsupported compatibility claim"
         ],
@@ -40,18 +44,20 @@
     },
     {
         "id": "medium-bounded-refactor",
+        "category": "routing",
+        "notes": "Routing classification fixture.",
         "task": "Extract duplicated mapping logic from two collaborators without changing public behavior.",
         "expected_route": "medium",
-        "expected_scope": [
+        "expected_context_behavior": [
             "two collaborators",
             "shared symbol if needed",
             "direct tests"
         ],
-        "required_verification": [
+        "expected_verification": [
             "focused caller tests",
             "diff review"
         ],
-        "prohibited_behavior": [
+        "must_not": [
             "architecture rewrite",
             "whole-repository search after sufficiency"
         ],
@@ -59,16 +65,18 @@
     },
     {
         "id": "medium-behavior-test",
+        "category": "routing",
+        "notes": "Routing classification fixture.",
         "task": "Update one bounded behaviour and its existing integration test.",
         "expected_route": "medium",
-        "expected_scope": [
+        "expected_context_behavior": [
             "affected behaviour",
             "focused integration test"
         ],
-        "required_verification": [
+        "expected_verification": [
             "focused integration test"
         ],
-        "prohibited_behavior": [
+        "must_not": [
             "whole-suite execution without reason",
             "scope creep"
         ],

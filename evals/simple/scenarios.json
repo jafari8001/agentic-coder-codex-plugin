@@ -1,17 +1,19 @@
 [
     {
         "id": "simple-rename",
+        "category": "routing",
+        "notes": "Routing classification fixture.",
         "task": "Rename a private helper and its single caller.",
         "expected_route": "simple",
-        "expected_scope": [
+        "expected_context_behavior": [
             "helper",
             "direct caller",
             "closest test if useful"
         ],
-        "required_verification": [
+        "expected_verification": [
             "focused test or syntax check"
         ],
-        "prohibited_behavior": [
+        "must_not": [
             "broad scan",
             "unrelated refactor",
             "full suite by default"
@@ -20,16 +22,18 @@
     },
     {
         "id": "simple-validation",
+        "category": "routing",
+        "notes": "Routing classification fixture.",
         "task": "Correct one obvious boundary check in a validation function.",
         "expected_route": "simple",
-        "expected_scope": [
+        "expected_context_behavior": [
             "validation symbol",
             "direct test or caller"
         ],
-        "required_verification": [
+        "expected_verification": [
             "focused validation test or reproduction"
         ],
-        "prohibited_behavior": [
+        "must_not": [
             "read unrelated validators",
             "full suite by default"
         ],
@@ -37,16 +41,18 @@
     },
     {
         "id": "simple-bug-fix",
+        "category": "routing",
+        "notes": "Routing classification fixture.",
         "task": "Fix an isolated bug with a known target function.",
         "expected_route": "simple",
-        "expected_scope": [
+        "expected_context_behavior": [
             "target symbol",
             "direct caller or test"
         ],
-        "required_verification": [
+        "expected_verification": [
             "focused regression check"
         ],
-        "prohibited_behavior": [
+        "must_not": [
             "architecture change",
             "unrelated module inspection"
         ],
@@ -54,16 +60,18 @@
     },
     {
         "id": "simple-focused-test",
+        "category": "routing",
+        "notes": "Routing classification fixture.",
         "task": "Add one focused regression test for an isolated bug.",
         "expected_route": "simple",
-        "expected_scope": [
+        "expected_context_behavior": [
             "target behaviour",
             "matching test"
         ],
-        "required_verification": [
+        "expected_verification": [
             "new focused test"
         ],
-        "prohibited_behavior": [
+        "must_not": [
             "inspect entire test tree",
             "modify production code without evidence"
         ],

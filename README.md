@@ -1,8 +1,8 @@
 # Agentic Coder for Codex
 
-Agentic Coder is a skill-only Codex plugin for disciplined repository work. It uses the Codex
-client and the account already signed in there; it does not request, store, or transmit an OpenAI
-API key.
+Agentic Coder is a skill-only workflow/policy layer for disciplined repository work in Codex. It
+uses the Codex client and the account already signed in there; it does not request, store, or
+transmit an OpenAI API key.
 
 The skill uses a compact engineering protocol: progressive context acquisition, risk-based routing,
 minimal implementation, adversarial diff review, and evidence-driven verification. It asks for
@@ -18,13 +18,16 @@ confirmation before destructive or external actions.
   review, preserved user changes, and explicit limitations.
 - **Adversarial review:** Medium and Complex work review the diff first, then inspect surrounding
   code only where the diff raises a concrete question.
-- **Verification:** starts with the cheapest sufficient check and expands only for a known risk.
+- **Verification:** evidence-driven: starts with the cheapest sufficient check and expands only for
+  a known risk.
+- **Safety checkpoints:** require confirmation immediately before destructive, production, external,
+  publishing, or irreversible actions.
 
 ## Evaluations
 
-[`evals/`](./evals) contains lightweight behavioral fixtures for routing, context efficiency,
-verification, and safety. They are not application tests and do not call a model. Validate their
-format with:
+[`evals/`](./evals) contains lightweight behavioral specifications for routing, context efficiency,
+review, verification, and safety. They are not Codex execution tests, model benchmarks, or token
+benchmarks; they do not call a model. Validate their format with:
 
 ```bash
 python3 evals/validate_evals.py
@@ -49,7 +52,7 @@ After a maintainer publishes a tagged release, install that immutable release ra
 branch. Replace `OWNER/REPO` with the published Git repository:
 
 ```bash
-codex plugin marketplace add OWNER/REPO --ref v0.2.1
+codex plugin marketplace add OWNER/REPO --ref v0.2.2
 codex plugin add agentic-coder@agentic-coder
 ```
 
@@ -80,7 +83,7 @@ python3 /path/to/skill-creator/scripts/quick_validate.py \
 python3 /path/to/plugin-creator/scripts/validate_plugin.py plugins/agentic-coder
 ```
 
-3. Commit the release, create a matching Git tag such as `v0.2.1`, push the tag, and create a
+3. Commit the release, create a matching Git tag such as `v0.2.2`, push the tag, and create a
    GitHub Release from it.
 
 The marketplace manifest at `.agents/plugins/marketplace.json` is the root catalog used by Codex.

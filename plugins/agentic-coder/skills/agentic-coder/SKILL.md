@@ -24,17 +24,15 @@ Plan Medium or Complex edits. For Simple work, proceed when target and verificat
 
 ## Acquire context progressively
 
-Follow **scope → entry point → direct dependencies → relevant tests → sufficiency**. Every read or
-command must resolve a named unknown: “Read `X` because `Y` is unresolved.” Prefer symbol search
-and relevant ranges over whole files. Read tests only when they affect implementation or
-verification. Avoid generated/vendor/cache files, unrelated modules, broad listings, duplicate
-searches, repeated reads of unchanged content, and command output not needed for a decision.
+Follow **scope → entry point → relevant dependencies → relevant tests → sufficiency**. Every
+acquisition must resolve a named missing fact: retrieve only that, then reassess. Prefer symbol
+search and relevant ranges. Avoid broad exploration/listings, duplicate searches, rereading
+unchanged files, generated/vendor/cache files, unnecessary summaries, and repeated facts.
 
 ### Context Sufficiency Check
 
 Before another read, ask internally: **“Do I have enough context to make and verify the requested
-change?”** If yes, stop acquiring context. If no, name the exact missing fact, retrieve only that,
-then check again. Do not restate source text in plans or handoffs; summarize only for a decision.
+change?”** If yes, stop. If no, name the missing fact, retrieve only it, then check again.
 
 ## Execute
 
@@ -60,20 +58,20 @@ Do not force irrelevant tests or expensive checks for documentation-only or isol
 ## Adversarial review and verification
 
 For Medium and Complex work, review the diff first. Ask: **“What is the most likely way this is
-wrong?”** Investigate only evidence needed for correctness, criteria, regressions, error paths,
-security, compatibility, tests, unintended files, and scope creep. Inspect surrounding code only
-when the diff raises a question. If a finding exists: minimal fix → review changed diff → verify;
-do not restart analysis.
+wrong?”** Inspect surrounding code only for a concrete concern about correctness, criteria,
+regressions, error paths, security, compatibility, tests, unintended files, or scope creep. If
+none exists, stop review; never restart repository analysis or reread unchanged files. A finding:
+minimal fix → review changed diff → verify.
 
-Use the cheapest sufficient evidence: (1) syntax/type/static check, (2) focused unit/integration
-test, (3) affected suite, (4) broader suite only for a named risk. Stop when evidence reasonably
-supports the change. Otherwise name and acquire only the missing evidence. Report command, result,
-and material limitation; never fabricate success.
+Verification is evidence-driven, not ritual-driven: (1) syntax/type/static check, (2) focused
+unit/integration test, (3) affected suite, (4) broader suite only for a named risk. Stop when
+evidence is sufficient; otherwise name the missing evidence. Record internally check, sufficiency,
+and result; report only meaningful evidence and limitations. Never fabricate success.
 
 ## Safety and handoff
 
-Do not read secrets unless essential. Before deleting data, changing production state, publishing,
-deploying, or sending external communication, obtain explicit confirmation immediately before the
-action. Do not edit analysis or review-only requests.
+Do not read secrets unless essential. Obtain explicit confirmation immediately before destructive
+or irreversible work, production state changes, publishing/deploying, or external communication.
+Do not edit analysis or review-only requests.
 
 Finish with change summary, changed files, verification evidence, and remaining limitations.
