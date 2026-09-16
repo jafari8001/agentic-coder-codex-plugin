@@ -1,16 +1,9 @@
 {
   "name": "agentic-coder",
-  "interface": {
-    "displayName": "Agentic Coder"
-  },
   "plugins": [
     {
       "name": "agentic-coder",
-      "source": {
-        "source": "local",
-        "path": "./plugins/agentic-coder"
-      },
-      "category": "Productivity"
+      "source": "./plugins/agentic-coder"
     }
   ]
 }
