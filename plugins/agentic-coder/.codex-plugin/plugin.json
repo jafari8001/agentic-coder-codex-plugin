@@ -1,6 +1,6 @@
 {
   "name": "agentic-coder",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "A context-efficient, evidence-driven coding workflow for Codex.",
   "author": {
     "name": "AgenticCoder contributors"

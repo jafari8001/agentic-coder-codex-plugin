@@ -2,6 +2,22 @@
 
 All notable changes to this plugin are documented in this file.
 
+## 0.3.0 — 2026-09-16
+
+### Added
+
+- Dependency-free benchmark runner, isolated synthetic workspaces, structured observations, and
+  Markdown reporting for Raw Codex versus Agentic Coder.
+
+### Changed
+
+- Extends eval fixtures with optional runnable setup and deterministic acceptance criteria.
+- Adds infrastructure tests and ignores generated benchmark results.
+
+### Documentation
+
+- Documents methodology, metrics, limitations, and the v0.3.0 release workflow.
+
 ## 0.2.2 — 2026-09-16
 
 - Hardens context sufficiency, compact state, diff-first review, and evidence-driven verification.

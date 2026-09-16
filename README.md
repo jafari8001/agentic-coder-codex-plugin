@@ -1,91 +1,102 @@
 # Agentic Coder for Codex
 
-Agentic Coder is a skill-only workflow/policy layer for disciplined repository work in Codex. It
-uses the Codex client and the account already signed in there; it does not request, store, or
-transmit an OpenAI API key.
+Agentic Coder is a skill-only workflow/policy plugin for Codex. It does not replace Codex or make
+a model inherently smarter; it changes the execution protocol toward scoped context, disciplined
+implementation, diff-first review, evidence-driven verification, and safety checkpoints.
 
-The skill uses a compact engineering protocol: progressive context acquisition, risk-based routing,
-minimal implementation, adversarial diff review, and evidence-driven verification. It asks for
-confirmation before destructive or external actions.
+## What it does
 
-## Workflow
+It routes work by risk, acquires context progressively, stops when context is sufficient, and
+keeps review and verification proportional to the change. It is designed to reduce unnecessary
+context/tool usage while preserving correctness; it does not claim measured improvement before a
+benchmark demonstrates it.
 
-- **Simple / Medium / Complex:** routes work by scope, risk, uncertainty, and reversibility—not
-  file count alone.
-- **Context Sufficiency Check:** before every additional read, Codex asks whether it has enough
-  context to make and verify the change. If not, it retrieves only the named missing fact.
-- **Definition of Done:** requires applicable acceptance criteria, focused verification, diff
-  review, preserved user changes, and explicit limitations.
-- **Adversarial review:** Medium and Complex work review the diff first, then inspect surrounding
-  code only where the diff raises a concrete question.
-- **Verification:** evidence-driven: starts with the cheapest sufficient check and expands only for
-  a known risk.
-- **Safety checkpoints:** require confirmation immediately before destructive, production, external,
-  publishing, or irreversible actions.
+## Why it exists
 
-## Evaluations
+Coding agents can spend effort exploring irrelevant files, repeating context, or running ritual
+checks. This plugin supplies a compact policy for avoiding those behaviors without adding an API,
+runtime service, model wrapper, or external dependency.
 
-[`evals/`](./evals) contains lightweight behavioral specifications for routing, context efficiency,
-review, verification, and safety. They are not Codex execution tests, model benchmarks, or token
-benchmarks; they do not call a model. Validate their format with:
+## How it works
+
+Simple, Medium, and Complex routes use scope, risk, uncertainty, and reversibility. The policy
+follows scope → entry point → relevant dependencies → relevant tests → sufficiency; Medium and
+Complex work review the diff before reading surrounding code. Destructive, production, external,
+publishing, and irreversible actions require confirmation immediately before execution.
+
+## Installation
+
+```bash
+codex plugin marketplace add jafari8001/agentic-coder-codex-plugin --ref v0.3.0
+codex plugin add agentic-coder@agentic-coder
+```
+
+Open a new Codex thread after installation. The plugin uses the account already configured in the
+Codex client and never reads or stores API keys, browser cookies, or passwords.
+
+## Usage
+
+Ask for repository work normally, or say “Use Agentic Coder to …”. The plugin remains policy-only:
+it does not autonomously deploy, publish, or communicate externally.
+
+## Evaluation & Benchmarking
+
+v0.3 adds a reproducible benchmark that executes the same synthetic task in isolated Git
+workspaces under two conditions: Raw Codex and Codex + Agentic Coder. Fixtures are committed;
+generated results are written below `evals/results/` and ignored by Git.
 
 ```bash
 python3 evals/validate_evals.py
+python3 -m unittest discover -s evals/tests
+python3 evals/run_benchmark.py --case benchmark-simple-validation
+python3 evals/run_benchmark.py --all
+python3 evals/report.py evals/results/<run-id>
 ```
 
-## Install from a checkout
+`--condition raw-codex` and `--condition agentic-coder` run one side; the default is comparison.
 
-Clone this repository, then add its marketplace directory to Codex and install the plugin:
+## Benchmark methodology
 
-```bash
-codex plugin marketplace add /absolute/path/to/agentic-coder-codex-plugin
-codex plugin add agentic-coder@agentic-coder
+Each runnable fixture creates a fresh purpose-built repository, initializes identical Git state,
+runs the identical task prompt, captures output/diff/error data, evaluates deterministic acceptance
+criteria, and renders per-dimension results. Raw Codex uses `codex exec --ignore-user-config`;
+Agentic Coder uses the actually installed plugin. Codex CLI has no explicit per-run plugin selector,
+so reports mark comparisons as not fully controlled and record that limitation.
+
+## Metrics
+
+The evaluator reports task success, acceptance checks, tests, changed/unrelated files,
+verification, timeout, and execution errors. Tool calls, commands run, files read, and token usage
+are recorded as `null` when the CLI does not expose them reliably. Tool/context values are clearly
+labelled proxy metrics, never token measurements. Reports compare dimensions without a winner,
+ranking, or aggregate score.
+
+## Limitations
+
+Current fixtures are behavioral specifications plus a small synthetic baseline suite. Subjective
+requirements and `must_not` prose remain `manual_review_required`; no LLM judge is used. The
+runner never fabricates unavailable data or real-agent results.
+
+## Repository structure
+
+```text
+plugins/agentic-coder/  Plugin manifest and compact SKILL.md policy
+evals/                  Fixtures, validator, benchmark modules, runner, report, tests
+.agents/plugins/        Marketplace catalog
 ```
 
-Start a new Codex thread after installation, then ask for a coding task normally or say “Use
-Agentic Coder to …”. Codex runs the skill with the account and usage allowance already configured
-in the official client.
+## Development
 
-## Install from a public Git repository
+Run the fixture validator, infrastructure tests, skill validator, and plugin validator before a
+release. The benchmark runner requires an authenticated local Codex CLI and an installed Agentic
+Coder plugin for the Agentic condition.
 
-After a maintainer publishes a tagged release, install that immutable release rather than a moving
-branch. Replace `OWNER/REPO` with the published Git repository:
+## Versioning / Releases
 
-```bash
-codex plugin marketplace add OWNER/REPO --ref v0.2.2
-codex plugin add agentic-coder@agentic-coder
-```
+Update plugin metadata, README release reference, CHANGELOG, and relevant fixtures together. Create
+a matching tag such as `v0.3.0`, push it, then create the GitHub Release.
 
-To update an installed Git marketplace after a newer release is published:
+## License
 
-```bash
-codex plugin marketplace upgrade agentic-coder
-```
-
-Open a new Codex thread after installing or updating so the current skill instructions load.
-
-## What it does not do
-
-This package is intentionally not a wrapper around an API. It does not read browser cookies,
-passwords, ChatGPT session tokens, or API keys. It also does not use LiteLLM; the signed-in Codex
-client supplies the model and tools.
-
-## Release process
-
-1. Update `plugins/agentic-coder/.codex-plugin/plugin.json`, `CHANGELOG.md`, and relevant evals with the next
-   semantic version.
-2. Validate the skill and plugin:
-
-```bash
-python3 /path/to/skill-creator/scripts/quick_validate.py \
-  plugins/agentic-coder/skills/agentic-coder
-
-python3 /path/to/plugin-creator/scripts/validate_plugin.py plugins/agentic-coder
-```
-
-3. Commit the release, create a matching Git tag such as `v0.2.2`, push the tag, and create a
-   GitHub Release from it.
-
-The marketplace manifest at `.agents/plugins/marketplace.json` is the root catalog used by Codex.
-Keep the plugin name and its source path stable after publication so existing installations can
-upgrade safely.
+No license file is currently included. Add one before distributing the project under explicit reuse
+terms.

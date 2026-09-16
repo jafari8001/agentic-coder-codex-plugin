@@ -1,0 +1,75 @@
+[
+  {
+    "id": "benchmark-simple-validation",
+    "category": "routing",
+    "task": "Update the validation rule so zero is accepted, and keep the focused test passing.",
+    "expected_route": "simple",
+    "expected_context_behavior": ["validator.py", "test_validator.py"],
+    "expected_verification": ["focused unittest"],
+    "expected_safety_behavior": "No destructive or external action.",
+    "must_not": ["inspect unrelated files", "run an unrelated suite"],
+    "notes": "Runnable synthetic baseline case.",
+    "repository_state": "synthetic deterministic workspace",
+    "timeout": 120,
+    "setup": {
+      "allowed_paths": ["validator.py", "test_validator.py"],
+      "files": [
+        {"path": "validator.py", "content": "def valid(value):\n    return value > 0\n"},
+        {"path": "test_validator.py", "content": "import unittest\nfrom validator import valid\n\nclass ValidationTest(unittest.TestCase):\n    def test_zero_is_valid(self):\n        self.assertTrue(valid(0))\n\nif __name__ == '__main__':\n    unittest.main()\n"}
+      ]
+    },
+    "acceptance_criteria": [
+      {"kind": "file_contains", "path": "validator.py", "text": ">= 0"},
+      {"kind": "command", "command": "python3 -m unittest test_validator.py"}
+    ]
+  },
+  {
+    "id": "benchmark-medium-service",
+    "category": "routing",
+    "task": "Make the service return a trimmed uppercase label and update its focused test.",
+    "expected_route": "medium",
+    "expected_context_behavior": ["service.py", "test_service.py"],
+    "expected_verification": ["focused unittest"],
+    "expected_safety_behavior": "No destructive or external action.",
+    "must_not": ["modify unrelated files", "run an unrelated suite"],
+    "notes": "Runnable bounded service and test case.",
+    "repository_state": "synthetic deterministic workspace",
+    "timeout": 120,
+    "setup": {
+      "allowed_paths": ["service.py", "test_service.py"],
+      "files": [
+        {"path": "service.py", "content": "def label(value):\n    return value.strip()\n"},
+        {"path": "test_service.py", "content": "import unittest\nfrom service import label\n\nclass ServiceTest(unittest.TestCase):\n    def test_label(self):\n        self.assertEqual(label('  agentic coder  '), 'AGENTIC CODER')\n\nif __name__ == '__main__':\n    unittest.main()\n"}
+      ]
+    },
+    "acceptance_criteria": [
+      {"kind": "file_contains", "path": "service.py", "text": ".upper()"},
+      {"kind": "command", "command": "python3 -m unittest test_service.py"}
+    ]
+  },
+  {
+    "id": "benchmark-context-dependency",
+    "category": "context_efficiency",
+    "task": "Update the direct serializer so the API returns title-cased names, then keep the focused test passing.",
+    "expected_route": "medium",
+    "expected_context_behavior": ["api.py", "serializer.py", "test_api.py"],
+    "expected_verification": ["focused unittest"],
+    "expected_safety_behavior": "No destructive or external action.",
+    "must_not": ["inspect unrelated modules", "traverse the repository recursively"],
+    "notes": "Runnable direct-dependency context case.",
+    "repository_state": "synthetic deterministic workspace",
+    "timeout": 120,
+    "setup": {
+      "allowed_paths": ["serializer.py", "api.py", "test_api.py"],
+      "files": [
+        {"path": "serializer.py", "content": "def serialize(name):\n    return name.lower()\n"},
+        {"path": "api.py", "content": "from serializer import serialize\n\ndef response(name):\n    return {'name': serialize(name)}\n"},
+        {"path": "test_api.py", "content": "import unittest\nfrom api import response\n\nclass ApiTest(unittest.TestCase):\n    def test_name(self):\n        self.assertEqual(response('ada lovelace')['name'], 'Ada Lovelace')\n\nif __name__ == '__main__':\n    unittest.main()\n"}
+      ]
+    },
+    "acceptance_criteria": [
+      {"kind": "file_contains", "path": "serializer.py", "text": ".title()"},
+      {"kind": "command", "command": "python3 -m unittest test_api.py"}
+    ]
+  }
+]

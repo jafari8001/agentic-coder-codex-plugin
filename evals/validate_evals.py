@@ -26,6 +26,8 @@ def main() -> None:
     errors: list[str] = []
     scenario_ids: set[str] = set()
     for path in sorted(ROOT.rglob("*.json")):
+        if "results" in path.relative_to(ROOT).parts:
+            continue
         try:
             scenarios = json.loads(path.read_text(encoding="utf-8"))
         except json.JSONDecodeError as error:
@@ -63,6 +65,22 @@ def main() -> None:
                 value = scenario.get(field)
                 if not isinstance(value, str) or not value:
                     errors.append(f"{label}: {field} must be a non-empty string")
+            for field in {"expected_scope", "prohibited_behavior"}:
+                value = scenario.get(field)
+                if value is not None and (
+                    not isinstance(value, list) or not all(isinstance(item, str) and item for item in value)
+                ):
+                    errors.append(f"{label}: {field} must be a list of strings when present")
+            setup = scenario.get("setup")
+            if setup is not None and not isinstance(setup, dict):
+                errors.append(f"{label}: setup must be an object")
+            criteria = scenario.get("acceptance_criteria")
+            if criteria is not None and (
+                not isinstance(criteria, list)
+                or not criteria
+                or not all(isinstance(item, dict) and item.get("kind") for item in criteria)
+            ):
+                errors.append(f"{label}: acceptance_criteria must be non-empty criterion objects")
     if errors:
         raise SystemExit("Evaluation fixture validation failed:\n- " + "\n- ".join(errors))
     print(f"Validated {len(scenario_ids)} evaluation scenarios.")
