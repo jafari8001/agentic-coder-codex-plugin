@@ -1,6 +1,6 @@
 {
   "name": "agentic-coder",
-  "version": "0.2.1",
+  "version": "0.2.1+codex.20260915180541",
   "description": "A context-efficient, evidence-driven coding workflow for Codex.",
   "author": {
     "name": "AgenticCoder contributors"
@@ -12,7 +12,10 @@
     "longDescription": "Guides Codex through progressive context acquisition, risk-based routing, adversarial diff review, and evidence-driven verification without requiring an API key.",
     "developerName": "AgenticCoder contributors",
     "category": "Productivity",
-    "capabilities": ["Interactive", "Write"],
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
     "defaultPrompt": [
       "Use Agentic Coder to implement this task safely.",
       "Use Agentic Coder to review the current diff.",
